@@ -22,14 +22,21 @@ namespace ElementManagementSystem_Jupiter
         public MainForm()
         {
             InitializeComponent();
-
-            MainDataGridView.Columns.Add("State", "상태");
+            DataGridViewComboBoxColumn comboBoxColumn = new DataGridViewComboBoxColumn
+            {
+                HeaderText = "상태",
+                Name = "State",
+                DataSource = new string[] { "입고", "출고", "대여", "반납" }, // 콤보박스에 들어갈 항목
+                ValueType = typeof(string)
+            };
+            MainDataGridView.Columns.Add(comboBoxColumn);
             MainDataGridView.Columns.Add("NIN", "품번");
             MainDataGridView.Columns.Add("Name", "품명");
             MainDataGridView.Columns.Add("Count", "개수");
             MainDataGridView.Columns.Add("Date", "날짜");
             MainDataGridView.Columns.Add("Location", "위치");
             MainDataGridView.Columns.Add("User", "작성자");
+            MainDataGridView.Columns.Add("Comment", "코멘트");
 
             GetCSVFile();
         }
@@ -64,7 +71,7 @@ namespace ElementManagementSystem_Jupiter
             for (int i = 0; i < DataCsv.Count; i++)
             {
                 //MainDataGridView.Rows.Add("입고", (i * 1111).ToString(), "전투원용무전기", "1", DateTime.Now.ToString(), "통신소대", "박진성");
-                MainDataGridView.Rows.Add(DataCsv[i][0], DataCsv[i][1], DataCsv[i][2], DataCsv[i][3], DataCsv[i][4], DataCsv[i][5], DataCsv[i][6]);
+                MainDataGridView.Rows.Add(DataCsv[i][0], DataCsv[i][1], DataCsv[i][2], DataCsv[i][3], DataCsv[i][4], DataCsv[i][5], DataCsv[i][6], DataCsv[i][7]);
             }
         }
 
@@ -195,5 +202,7 @@ namespace ElementManagementSystem_Jupiter
         {
             SelectedRowsLabel.Text = "선택된 줄 개수 : " + MainDataGridView.SelectedRows.Count.ToString();
         }
+
+
     }
 }
